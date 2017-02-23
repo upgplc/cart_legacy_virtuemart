@@ -1,0 +1,376 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//Dtd HTML 4.01 Transitional//EN" "http://www.w3.org/tr/html4/loose.dtd">
+<html xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+	<head>
+		<title>Secure Payment Form</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<!-- Bootstrap core CSS -->
+	    <link href="https://www.secure-server-hosting.com/secutran/secureforms/assets/bootstrap/css/bootstrap.css" rel="stylesheet">
+	    <!-- Bootstrap theme -->
+	    <link href="https://www.secure-server-hosting.com/secutran/secureforms/assets/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+	    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
+	    <script src="https://www.secure-server-hosting.com/secutran/secureforms/assets/jQuery/jquery-3.1.0.js"></script>
+	    <script src="https://www.secure-server-hosting.com/secutran/secureforms/assets/bootstrap/js/bootstrap.js"></script>
+	    <script src="https://www.secure-server-hosting.com/secutran/secureforms/assets/jQuery/jquery.creditCardValidator.js"></script>
+		<script type="text/javascript">	
+			function validateForm(theForm){
+				var error = false
+				
+				var today = new Date();
+				var month = today.getMonth()+1;
+				var year = parseFloat(today.getFullYear().toString().substr(2,2));
+				if(!/^[0-9]{13,21}$/.test(theForm.cardnumber.value.replace(/ /g,'')) || !mod10(theForm.cardnumber.value)){
+					$('#cardnumberdiv').addClass('has-error');
+					error = true;
+				} else{
+					$('#cardnumberdiv').removeClass('has-error');
+					error = false;					
+				}
+				if(parseFloat(theForm.cardstartyear.value) > year || (parseFloat(theForm.cardstartyear.value) == year && parseFloat(theForm.cardstartmonth.value) > month)){
+					$('#cardstartyeardiv').addClass('has-error');
+					$('#cardstartmonthdiv').addClass('has-error');
+					error = true;
+				} else{
+					$('#cardstartyeardiv').removeClass('has-error');
+					$('#cardstartmonthdiv').removeClass('has-error');
+					error = false;					
+				}
+				if(parseFloat(theForm.cardexpireyear.value) < year || (parseFloat(theForm.cardexpireyear.value) == year && parseFloat(theForm.cardexpiremonth.value) < month)){
+					$('#cardexpireyeardiv').addClass('has-error');
+					$('#cardexpiremonthdiv').addClass('has-error');
+					error = true;
+				} else{
+					$('#cardexpireyeardiv').removeClass('has-error');
+					$('#cardexpiremonthdiv').removeClass('has-error');
+					error = false;					
+				}
+				if(!/^[0-9]{3,4}$/.test(theForm.cv2.value)){
+					$('#cv2div').addClass('has-error');
+					error = true;
+				} else{
+					$('#cv2div').removeClass('has-error');
+					error = false;
+				}
+				
+				
+				if(error == true){
+					return false;
+				}
+				return true;
+			}
+			
+			function mod10(str){
+				if(typeof str != 'string') return false;
+				var strArr = str.replace(/[^0-9]/g,'').split('');
+				var n = 0; var midArr;
+				for(var i=1; i <= strArr.length; i++)
+					if(i%2)n += parseFloat(strArr[strArr.length-i]);
+					else if(parseFloat(strArr[strArr.length-i])*2 < 10)n += parseFloat(strArr[strArr.length-i])*2;
+						else {
+							midArr = (parseFloat(strArr[strArr.length-i])*2).toString().split('');
+							n += parseFloat(midArr[0]);n += parseFloat(midArr[1]);
+						}
+				return n%10 == 0;
+			}
+			
+			function completeCardholder(check) {
+	
+				var checked = check.checked;
+	
+				if (checked) {
+					document.forms['basketform'].deliveryname.value = document.forms['basketform'].cardholdersname.value;
+					document.forms['basketform'].deliveryAddr1.value = document.forms['basketform'].cardholderaddr1.value;
+					document.forms['basketform'].deliveryCity.value = document.forms['basketform'].cardholdercity.value;
+					document.forms['basketform'].deliveryState.value = document.forms['basketform'].cardholderstate.value;
+					document.forms['basketform'].deliveryPostcode.value = document.forms['basketform'].cardholderpostcode.value;
+				}
+				else {
+					document.forms['basketform'].deliveryname.value = "";
+					document.forms['basketform'].deliveryAddr1.value = "";
+					document.forms['basketform'].deliveryCity.value = "";
+					document.forms['basketform'].deliveryState.value = "";
+					document.forms['basketform'].deliveryPostcode.value = "";
+				}
+			}
+			
+			onload=function(){
+				var options=8;//How many drop down options to display
+				var cardstartyearname = 'cardstartyear';//Field name of the card start year field
+				var cardexpireyearname = 'cardexpireyear';//Field name of the card start year field
+				/********** DO NOT EDIT BELOW THIS LINE **********/
+				var today = new Date();
+				var year = today.getFullYear();
+				var cardstartyear = document.getElementsByName(cardstartyearname)[0];
+				cardstartyear.options.length = 0;
+				var cardexpireyear = document.getElementsByName(cardexpireyearname)[0];
+				cardexpireyear.options.length = 0;
+				for(var i=0; i<=options;i++){
+					var optn = document.createElement('OPTION');
+					cardexpireyear.appendChild(optn);
+					optn.text = (parseFloat(year)+i).toString().substr(2,2);
+					optn.value = optn.text;
+					var optn = document.createElement('OPTION');
+					cardstartyear.appendChild(optn);
+					optn.text = (parseFloat(year)-options+i).toString().substr(2,2);
+					optn.value = optn.text;
+				}
+			};
+		</script>
+		<style>
+		/* enable absolute positioning */
+			.inner-addon { 
+			    position: relative; 
+			}
+			/* style icon */
+			.inner-addon .glyphicon {
+			  position: absolute;
+			  padding-left: 5px;
+			  pointer-events: none;
+			}
+			/* align icon */
+			.left-addon .glyphicon  { left:  0px;}
+			.right-addon .glyphicon { right: 0px;}
+			/* add padding  */
+			.left-addon input  { padding-left:  50px; }
+			.right-addon input { padding-right: 30px; }
+		</style>	</head>
+	<body>
+	<div class="row">&nbsp;</div>
+	<div class="row">&nbsp;</div>
+	<div class="row">&nbsp;</div>
+	<div class="container">
+		<div class="header clearfix">
+			<h1 class="text-muted text-primary">Secure Payment Form</h1>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<h3>Your purchases</h3>
+			</div>
+		</div>
+		<div class="well well-lg">
+			<div class="row">
+				<div class="col-md-2">
+					<strong>Product Code</strong><br/>
+					<loopstart:shoplst:>
+						$itemcode<br>
+					<loopend>
+				</div>
+				<div class="col-md-5">
+					<strong>Item Description</strong><br/>
+					<loopstart:shoplst:>
+						$itemdesc<br>
+					<loopend>
+				</div>
+				<div class="col-md-1">
+					<strong>Quantity</strong><br/>
+					<loopstart:shoplst:>
+						$itemquan<br>
+					<loopend>
+				</div>
+				<div class="col-md-2">
+					<strong>Item Price</strong><br/>
+					<loopstart:shoplst:>
+						$transactioncurrency &nbsp;$itempric<br>
+					<loopend>
+				</div>
+				<div class="col-md-2">
+					<strong>Total Price</strong><br/>
+					<loopstart:shoplst:>
+						$transactioncurrency &nbsp;$itemtota<br>
+					<loopend>
+				</div>
+			</div>
+			<hr />
+			<div class="row">
+				<div class="col-md-3">
+					<p><strong>Tax: </strong>$transactioncurrency $transactiontax</p>
+					<p><strong>Shipping: </strong>$transactioncurrency $shippingcharge</p>
+					<p><strong>Discount: </strong>$transactioncurrency $transactiondiscount</p>
+					<p><strong>Transaction Total: </strong>$transactioncurrency $transactionamount</p>
+				</div>
+			</div>
+		</div>
+		<form action="/secutran/transactionsi1.php" method="post" name="basketform" id="basketform" onsubmit="return validateForm(this)">
+			<div class="row">
+				<div class="col-md-5 col-md-offset-1">
+				    <input type="hidden" name="shreference" value="$shreference"/>
+				    <input type="hidden" name="checkcode" value="$checkcode"/>
+				    <input type="hidden" name="filename" value="$backfile"/>
+				    <input type="hidden" name="orderid" value="$orderid"/>
+				    <input type="hidden" name="subtotal" value="$subtotal"/>
+				    <input type="hidden" name="transactionamount" value="$transactionamount"/>
+				    <input type="hidden" name="transactioncurrency" value="$transactioncurrency"/>
+				    <input type="hidden" name="transactiontax" value="$transactiontax"/>
+				    <input type="hidden" name="shippingcharge" value="$shippingcharge"/>
+				    <input type="hidden" name="transactiondiscount" value="$transactiondiscount"/>
+				    <input type="hidden" name="secuitems" value="$secuitems"/>
+				    <input type="hidden" name="secuString" value="$secuString"/>
+				    <input type="hidden" name="callbackurl" value="http://81.145.60.147/callback/do"/>
+				    <input type="hidden" name="callbackdata" value="$callbackdata"/>
+				    <input type="hidden" name="success_url" value="$success_url"/>
+				    <input type="hidden" name="return_url" value="$return_url"/>
+				    <input type="hidden" name="cardholdersname" value="$cardholdersname"/>
+				    <input type="hidden" name="cardholdersemail" value="$cardholdersemail"/>
+				    <input type="hidden" name="cardholdercompany" value="$cardholdercompany"/>
+				    <input type="hidden" name="cardholderaddr1" value="$cardholderaddr1"/>
+				    <input type="hidden" name="cardholderaddr2" value="$cardholderaddr2"/>
+				    <input type="hidden" name="cardholdercity" value="$cardholdercity"/>
+				    <input type="hidden" name="cardholderstate" value="$cardholderstate"/>
+				    <input type="hidden" name="cardholderpostcode" value="$cardholderpostcode"/>
+				    <input type="hidden" name="cardholdercountry" value="$cardholdercountry"/>
+				    <input type="hidden" name="cardholdertelephonenumber" value="$cardholdertelephonenumber"/>
+					<input type="hidden" name="shippingname" value="$shippingname" />
+					<input type="hidden" name="shippingtelephonenumber" value="$shippingtelephonenumber" />
+					<input type="hidden" name="shippingaddr1" value="$shippingaddr1" />
+					<input type="hidden" name="shippingaddr2" value="$shippingaddr2" />
+					<input type="hidden" name="shippingcity" value="$shippingcity" />
+					<input type="hidden" name="shippingstate" value="$shippingstate" />
+					<input type="hidden" name="shippingcountry" value="$shippingcountry" />
+					<input type="hidden" name="shippingpostcode" value="$shippingpostcode" />
+					
+					<h3>Cardholder Details</h3>
+                    <p><strong>Name: </strong>$cardholdersname</p>
+
+                    <p><strong>Email address: </strong>$cardholdersemail</p>
+
+                    <p><strong>Phone number: </strong>$cardholdertelephonenumber</p>
+
+                    <p><strong>Street: </strong>$cardholderaddr1</p>
+
+                    <p><strong>City/Town: </strong>$cardholdercity</p>
+
+                    <p><strong>County: </strong>$cardholderstate</p>
+
+                    <p><strong>Postcode: </strong>$cardholderpostcode</p>
+
+                    <p><strong>Country: </strong>$cardholdercountry</p>
+				</div>
+
+				<div class="col-md-5">
+
+					<h3>Delivery Details</h3>
+                    <p><strong>Name: </strong>$shippingname</p>
+
+                    <p><strong>Street: </strong>$shippingaddr1</p>
+
+                    <p><strong>City/Town: </strong>$shippingaddr2</p>
+
+                    <p><strong>County: </strong>$shippingstate</p>
+
+                    <p><strong>Postcode: </strong>$shippingpostcode</p>
+
+                    <p><strong>Country: </strong>$shippingcountry</p>
+				</div>
+			</div>
+			<div class="row">&nbsp;</div>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4>Credit/Debit Card Details</h4>
+				</div>			
+				<div class="panel-body">
+					<div class="col-md-4 col-md-offset-1">
+						<div class="form-group">
+							<label for="cardtype">Card type:</label>
+							<select class="form-control" name="cardtype" id="cardtype">
+							<option value="Visa">Visa</option>
+							<option value="Mastercard">Mastercard</option>
+							<option value="Maestro">Maestro</option>
+							<option value="Diners">Diners</option>
+							<option value="Amex">American Express</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-2 col-md-offset-1">
+						<div class="form-group" id="cardstartmonthdiv">
+							<label for="cardstartmonth">Start month:</label>
+							<select class="form-control" name="cardstartmonth" id="cardstartmonth">
+							<option value="01">01</option>
+							<option value="02">02</option>
+							<option value="03">03</option>
+							<option value="04">04</option>
+							<option value="05">05</option>
+							<option value="06">06</option>
+							<option value="07">07</option>
+							<option value="08">08</option>
+							<option value="09">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group" id="cardstartyeardiv">
+							<label for="cardstartyear">Start year:</label>				
+							<select class="form-control" name="cardstartyear" id="cardstartyear">
+							</select>
+						</div>
+					</div>
+					<div class="col-md-4 col-md-offset-1">
+						<div id="cardnumberdiv" class="form-group">
+							<label for="cardnumber">Card number:&nbsp;<span style="color:red;">*</span></label>
+							<div class="inner-addon left-addon">
+								<i class="fa fa-cc-visa glyphicon" style="font-size:32px;"></i>
+								<input required class="form-control" type="number" name="cardnumber" id="cardnumber" />
+							</div>
+						</div>
+					</div>
+					<div class="col-md-2 col-md-offset-1">
+						<div class="form-group" id="cardexpiremonthdiv">
+							<label for="cardexpiremonth">Expiry date:&nbsp;<span style="color:red;">*</span></label>
+							<select class="form-control" name="cardexpiremonth" id="cardexpiremonth">
+							<option value="01">01</option>
+							<option value="02">02</option>
+							<option value="03">03</option>
+							<option value="04">04</option>
+							<option value="05">05</option>
+							<option value="06">06</option>
+							<option value="07">07</option>
+							<option value="08">08</option>
+							<option value="09">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group" id="cardexpireyeardiv">
+							<label for="cardexpireyear">Expiry date:&nbsp;<span style="color:red;">*</span></label>
+							<select class="form-control" name="cardexpireyear" id="cardexpireyear">
+							</select>
+						</div>
+					</div>
+					<div class="col-md-4 col-md-offset-1">
+						<div id="cv2div" class="form-group">
+							<label for="cv2">CV2 number:&nbsp;<span style="color:red;">*</span></label>
+							<input class="form-control" type="text" name="cv2" id="cv2" />
+						</div>
+						<div class="form-group">
+							<input type="submit" value="Complete Order" name="Complete Order" class="btn btn-primary" />
+							<input type="button" class="btn btn-primary" value="Cancel Order" name="Cancel Order" class="button" style="width: 175px" onclick="location.href='$return_url'" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	</body>
+	<script>
+	    $(function() {
+	        $('#cardnumber').validateCreditCard(function(result) {
+	        	$("#cardtype").val(result.card_type.name);
+	        	if(result.card_type.name == "Visa"){
+	        		$('.fa').addClass('fa-cc-visa').removeClass('fa-cc-amex').removeClass('fa-cc-mastercard').removeClass('fa-cc-diners-club').removeClass('fa-cc-credit-card');
+	        	} else if(result.card_type.name == "Amex"){
+	        		$('.fa').addClass('fa-cc-amex').removeClass('fa-cc-visa').removeClass('fa-cc-mastercard').removeClass('fa-cc-diners-club').removeClass('fa-cc-credit-card');
+	        	} else if(result.card_type.name == "Mastercard"){
+	        		$('.fa').addClass('fa-cc-mastercard').removeClass('fa-cc-visa').removeClass('fa-cc-amex').removeClass('fa-cc-diners-club').removeClass('fa-cc-credit-card');
+	        	} else if(result.card_type.name == "Diners"){
+	        		$('.fa').addClass('fa-cc-diners-club').removeClass('fa-cc-visa').removeClass('fa-cc-amex').removeClass('fa-cc-amex').removeClass('fa-cc-credit-card');
+	        	} else if(result.card_type.name == "Maestro"){
+	        		$('.fa').addClass('fa-credit-card').removeClass('fa-cc-visa').removeClass('fa-cc-amex').removeClass('fa-cc-diners-club').removeClass('fa-cc-mastercard');
+	        	}
+	        });
+	    });
+	</script>
+</html>

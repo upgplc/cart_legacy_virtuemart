@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmpayment">
+    <name>SecureHosting</name>
+    <creationDate>June 2013</creationDate>
+    <author>UPG Plc</author>
+    <authorUrl>http://www.upg.co.uk</authorUrl>
+    <license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+    <version>1.0.0</version>
+    <description><![CDATA[<a href="http://www.securehosting.com/" target="_blank">Secure Hosting</a> is a popular PCI:DSS compliant payment gateway provider in the UK.]]></description>
+
+	<!-- Plugin Files -->
+    <files folder="securehosting" destination="plugins/vmpayment/securehosting">
+		<filename plugin="securehosting">securehosting.php</filename>
+    </files>
+
+	<!-- Secure Hosting logo -->
+	<media folder="media" destination="../images/stories/virtuemart/payment">
+		<filename>securehosting.png</filename>
+	</media>
+
+	<!-- Supporting Language Files -->
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_vmpayment_securehosting.ini</language>
+	</languages>
+
+    <params addpath="/administrator/components/com_virtuemart/fields">
+
+		<!--  Secure Hosting Basic Settings -->
+		<param type="spacer" default="VMPAYMENT_SH_BASIC" level="level1"  description="VMPAYMENT_SH_BASIC_DESC"/>
+			<!-- Logo -->
+			<param name="payment_logos" type="vmfiles" label="VMPAYMENT_SH_LOGOS" description="VMPAYMENT_SH_LOGOS_DESC" directory="/images/stories/virtuemart/payment" default="default" hide_default="1" hide_none="1" stripext="0"  exclude="^_" />
+			<!-- SH Reference -->
+			<param type="text" name="shreference" size="50" label="VMPAYMENT_SH_SHREFERENCE" default="SH2XXXXX" description="VMPAYMENT_SH_SHREFERENCE_DESC" />
+			<!-- Check Code -->
+			<param type="text" name="checkcode" size="50" label="VMPAYMENT_SH_CHECKCODE" default="XXXXXX" description="VMPAYMENT_SH_CHECKCODE_DESC" />		 
+			<!-- filename -->
+			<param type="text" name="filename" size="50" label="VMPAYMENT_SH_FILENAME" default="vm_template.html" description="VMPAYMENT_SH_FILENAME_DESC" />
+			<param type="spacer" default="" level="level1" />
+
+		<!-- Secure Hosting Advanced Settings -->
+		<param type="spacer" default="VMPAYMENT_SH_ADV" level="level1" description="VMPAYMENT_SH_ADV_DESC" />
+			<!-- Activate Advanced Secuitems -->
+			<param name="activateas" type="radio" default="0" label="VMPAYMENT_SH_ACTIVATE_AS" description="VMPAYMENT_SH_ACTIVATE_AS_DESC" >
+				<option value="0">COM_VIRTUEMART_NO</option>
+				<option value="1">COM_VIRTUEMART_YES</option>
+			</param>
+			<!-- Advanced Secuitems Phrase -->
+			<param type="text" name="phrase" size="50" label="VMPAYMENT_SH_PHRASE" default="" description="VMPAYMENT_SH_PHRASE_DESC" />
+			<!-- Advanced Secuitems Referrer -->
+			<param type="text" name="referrer"  size="50" label="VMPAYMENT_SH_REFERER" default="http://www.mydomain/" description="VMPAYMENT_SH_REFERER_DESC" />
+			<!-- Test Mode -->
+			<param name="testmode" type="radio" default="0" label="VMPAYMENT_SH_TESTMODE" description="VMPAYMENT_SH_TESTMODE_DESC" >
+				<option value="0">COM_VIRTUEMART_NO</option>
+				<option value="1">COM_VIRTUEMART_YES</option>
+			</param>
+			<param type="spacer" default="" level="level1" />
+
+
+		<!-- Virtumart Restrictions -->
+		<param type="spacer" default="VMPAYMENT_SH_RESTRICTIONS" level="level1" description="VMPAYMENT_SH_RESTRICTIONS_DESC" />
+			<param name="countries" type="vmcountries"  scope="com_virtuemart" default="" label="VMPAYMENT_SH_COUNTRIES" description="VMPAYMENT_SH_COUNTRIES_DESC"/>
+			<param name="min_amount" type="text"  label="VMPAYMENT_SH_MIN_AMOUNT" description="VMPAYMENT_SH_MIN_AMOUNT_EXPLAIN" />
+			<param name="max_amount" type="text"  label="VMPAYMENT_SH_MAX_AMOUNT" description="VMPAYMENT_SH_MAX_AMOUNT_EXPLAIN" />
+			<param name="cost_per_transaction" type="text"  label="VMPAYMENT_SH_COST_PER_TRANSACTION" description="VMPAYMENT_SH_COST_PER_TRANSACTION_EXPLAIN" />
+			<param name="cost_percent_total" type="text"  label="VMPAYMENT_SH_COST_PERCENT_TOTAL" description="VMPAYMENT_SH_COST_PERCENT_TOTAL_EXPLAIN" />
+			<param name="tax_id" type="vmtaxes" scope="com_virtuemart"  label="VMPAYMENT_SH_TAX" description="VMPAYMENT_SH_TAX_EXPLAIN" />
+			<param type="spacer" default="" level="level1" />
+
+    </params>
+
+	<!-- Configuration parameters -->
+	<vmconfig>
+        <fields name="params">
+		    <fieldset name="basic" addfieldpath="/administrator/components/com_virtuemart/fields">
+				<!--<field type="vmjpluginwarning" />-->
+
+				<!--  Secure Hosting Basic Settings -->
+				<field type="spacer" default="VMPAYMENT_SH_BASIC" level="level1"  description="VMPAYMENT_SH_BASIC_DESC"/>
+					<!-- Logo -->
+					<field name="payment_logos" type="vmfiles" label="VMPAYMENT_SH_LOGOS" description="VMPAYMENT_SH_LOGOS_DESC" directory="/images/stories/virtuemart/payment" default="default" hide_default="1" hide_none="1" stripext="0"  exclude="^_" />
+					<!-- SH Reference -->
+					<field type="text" name="shreference" size="50" label="VMPAYMENT_SH_SHREFERENCE" default="SH2XXXXX" description="VMPAYMENT_SH_SHREFERENCE_DESC" />
+					<!-- Check Code -->
+					<field type="text" name="checkcode" size="50" label="VMPAYMENT_SH_CHECKCODE" default="XXXXXX" description="VMPAYMENT_SH_CHECKCODE_DESC" />		 
+					<!-- filename -->
+					<field type="text" name="filename" size="50" label="VMPAYMENT_SH_FILENAME" default="vm_template.html" description="VMPAYMENT_SH_FILENAME_DESC" />
+					<field type="spacer" default="" level="level1" />
+
+				<!-- Secure Hosting Advanced Settings -->
+				<field   type="spacer" default="VMPAYMENT_SH_ADV" level="level1" description="VMPAYMENT_SH_ADV_DESC" />
+					<!-- Activate Advanced Secuitems -->
+					<field name="activateas" type="radio" default="0" label="VMPAYMENT_SH_ACTIVATE_AS" description="VMPAYMENT_SH_ACTIVATE_AS_DESC" >
+						<option value="0">COM_VIRTUEMART_NO</option>
+						<option value="1">COM_VIRTUEMART_YES</option>
+					</field>
+					<!-- Advanced Secuitems Phrase -->
+					<field type="text" name="phrase" size="50" label="VMPAYMENT_SH_PHRASE" default="" description="VMPAYMENT_SH_PHRASE_DESC" />
+					<!-- Advanced Secuitems Referrer -->
+					<field type="text" name="referrer"  size="50" label="VMPAYMENT_SH_REFERER" default="http://www.mydomain/" description="VMPAYMENT_SH_REFERER_DESC" />
+					<!-- Test Mode -->
+					<field name="testmode" type="radio" default="0" label="VMPAYMENT_SH_TESTMODE" description="VMPAYMENT_SH_TESTMODE_DESC" >
+						<option value="0">COM_VIRTUEMART_NO</option>
+						<option value="1">COM_VIRTUEMART_YES</option>
+					</field>
+					<field type="spacer" default="" level="level1" />
+
+
+				<!-- Virtumart Restrictions -->
+				<field type="spacer" default="VMPAYMENT_SH_RESTRICTIONS" level="level1" description="VMPAYMENT_SH_RESTRICTIONS_DESC" />
+					<field name="countries" type="vmcountries"  scope="com_virtuemart" default="" label="VMPAYMENT_SH_COUNTRIES" description="VMPAYMENT_SH_COUNTRIES_DESC"/>
+					<field name="min_amount" type="text"  label="VMPAYMENT_SH_MIN_AMOUNT" description="VMPAYMENT_SH_MIN_AMOUNT_EXPLAIN" />
+					<field name="max_amount" type="text"  label="VMPAYMENT_SH_MAX_AMOUNT" description="VMPAYMENT_SH_MAX_AMOUNT_EXPLAIN" />
+					<field name="cost_per_transaction" type="text"  label="VMPAYMENT_SH_COST_PER_TRANSACTION" description="VMPAYMENT_SH_COST_PER_TRANSACTION_EXPLAIN" />
+					<field name="cost_percent_total" type="text"  label="VMPAYMENT_SH_COST_PERCENT_TOTAL" description="VMPAYMENT_SH_COST_PERCENT_TOTAL_EXPLAIN" />
+					<field name="tax_id" type="vmtaxes" scope="com_virtuemart"  label="VMPAYMENT_SH_TAX" description="VMPAYMENT_SH_TAX_EXPLAIN" />
+					<field type="spacer" default="" level="level1" />
+		    </fieldset>
+		</fields>
+	</vmconfig>
+</extension>
