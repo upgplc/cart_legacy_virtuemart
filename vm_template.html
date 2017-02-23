@@ -192,32 +192,30 @@
 		<form action="/secutran/transactionsi1.php" method="post" name="basketform" id="basketform" onsubmit="return validateForm(this)">
 			<div class="row">
 				<div class="col-md-5 col-md-offset-1">
-				    <input type="hidden" name="shreference" value="$shreference"/>
-				    <input type="hidden" name="checkcode" value="$checkcode"/>
-				    <input type="hidden" name="filename" value="$backfile"/>
-				    <input type="hidden" name="orderid" value="$orderid"/>
-				    <input type="hidden" name="subtotal" value="$subtotal"/>
-				    <input type="hidden" name="transactionamount" value="$transactionamount"/>
-				    <input type="hidden" name="transactioncurrency" value="$transactioncurrency"/>
-				    <input type="hidden" name="transactiontax" value="$transactiontax"/>
-				    <input type="hidden" name="shippingcharge" value="$shippingcharge"/>
-				    <input type="hidden" name="transactiondiscount" value="$transactiondiscount"/>
-				    <input type="hidden" name="secuitems" value="$secuitems"/>
-				    <input type="hidden" name="secuString" value="$secuString"/>
-				    <input type="hidden" name="callbackurl" value="http://81.145.60.147/callback/do"/>
-				    <input type="hidden" name="callbackdata" value="$callbackdata"/>
-				    <input type="hidden" name="success_url" value="$success_url"/>
-				    <input type="hidden" name="return_url" value="$return_url"/>
-				    <input type="hidden" name="cardholdersname" value="$cardholdersname"/>
-				    <input type="hidden" name="cardholdersemail" value="$cardholdersemail"/>
-				    <input type="hidden" name="cardholdercompany" value="$cardholdercompany"/>
-				    <input type="hidden" name="cardholderaddr1" value="$cardholderaddr1"/>
-				    <input type="hidden" name="cardholderaddr2" value="$cardholderaddr2"/>
-				    <input type="hidden" name="cardholdercity" value="$cardholdercity"/>
-				    <input type="hidden" name="cardholderstate" value="$cardholderstate"/>
-				    <input type="hidden" name="cardholderpostcode" value="$cardholderpostcode"/>
-				    <input type="hidden" name="cardholdercountry" value="$cardholdercountry"/>
-				    <input type="hidden" name="cardholdertelephonenumber" value="$cardholdertelephonenumber"/>
+					<input type="hidden" name='shreference' value='$shreference' />
+					<input type="hidden" name='checkcode' value='$checkcode' />
+					<input type="hidden" name='secuitems' value='$secuitems' />
+					<input type="hidden" name='secuString' value='$secuString' />
+					<input type="hidden" name='transactioncurrency' value='$transactioncurrency' />
+					<input type="hidden" name='shippingcharge' value='$shippingcharge' />
+					<input type="hidden" name='transactiontax' value='$transactiontax' />
+					<input type="hidden" name='transactionamount' value='$transactionamount' />
+					<input type="hidden" name='products_price' value='$products_price' />
+					<input type="hidden" name='filename' value='$backfile' />
+					<input type="hidden" name="callbackurl" value="$callbackurl" />
+					<input type="hidden" name="callbackdata" value="$callbackdata" />
+					<input type="hidden" name="orderid" value="$orderid" />
+					<input type="hidden" name="success_url" value="$success_url" />
+					<input type="hidden" name="cancel_url" value="$cancel_url" />
+					<input type="hidden" name="cardholdersname" value="$cardholdersname" />
+					<input type="hidden" name="cardholdersemail" value="$cardholdersemail" />
+					<input type="hidden" name="cardholdertelephonenumber" value="$cardholdertelephonenumber" />
+					<input type="hidden" name="cardholderaddr1" value="$cardholderaddr1" />
+					<input type="hidden" name="cardholderaddr2" value="$cardholderaddr2" />
+					<input type="hidden" name="cardholdercity" value="$cardholdercity" />
+					<input type="hidden" name="cardholderstate" value="$cardholderstate" />
+					<input type="hidden" name="cardholdercountry" value="$cardholdercountry" />
+					<input type="hidden" name="cardholderpostcode" value="$cardholderpostcode" />
 					<input type="hidden" name="shippingname" value="$shippingname" />
 					<input type="hidden" name="shippingtelephonenumber" value="$shippingtelephonenumber" />
 					<input type="hidden" name="shippingaddr1" value="$shippingaddr1" />
@@ -226,7 +224,7 @@
 					<input type="hidden" name="shippingstate" value="$shippingstate" />
 					<input type="hidden" name="shippingcountry" value="$shippingcountry" />
 					<input type="hidden" name="shippingpostcode" value="$shippingpostcode" />
-					
+							
 					<h3>Cardholder Details</h3>
                     <p><strong>Name: </strong>$cardholdersname</p>
 
@@ -347,7 +345,7 @@
 						</div>
 						<div class="form-group">
 							<input type="submit" value="Complete Order" name="Complete Order" class="btn btn-primary" />
-							<input type="button" class="btn btn-primary" value="Cancel Order" name="Cancel Order" class="button" style="width: 175px" onclick="location.href='$return_url'" />
+							<input type="button" class="btn btn-primary" value="Cancel Order" name="Cancel Order" class="button" style="width: 175px" onclick="location.href='$cancel_url'" />
 						</div>
 					</div>
 				</div>
